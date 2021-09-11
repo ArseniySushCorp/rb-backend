@@ -37,3 +37,4 @@ lerna-debug.log*
 # config files
 .development.env
 .production.env
+stuff.js
