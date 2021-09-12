@@ -4,18 +4,16 @@ import { TypeOrmModule } from "@nestjs/typeorm"
 
 import ormconfig from "@src/config/ormconfig"
 import { UserModule } from "./modules/user/user.module"
+import { AuthModule } from "./modules/auth/auth.module"
 
 @Module({
   imports: [
+    AuthModule,
+    UserModule,
     ConfigModule.forRoot({
       isGlobal: true
     }),
-    UserModule,
     TypeOrmModule.forRoot(ormconfig)
   ]
 })
-export class AppModule {
-  constructor() {
-    console.log("ENV IN NEST", process.env.PORT)
-  }
-}
+export class AppModule {}

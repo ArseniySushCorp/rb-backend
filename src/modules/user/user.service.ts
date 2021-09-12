@@ -7,7 +7,7 @@ import { UserEntity } from "./user.entity"
 export class UserService {
   constructor(@InjectRepository(UserEntity) private readonly userRepo: Repository<UserEntity>) {}
 
-  getUser() {
-    return "USER-1-1-1"
+  async getUser() {
+    return await this.userRepo.find()
   }
 }
