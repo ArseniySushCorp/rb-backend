@@ -1,3 +1,4 @@
+import { UserType } from "./types/user.type"
 import { AuthService } from "./../auth/auth.service"
 import { ConflictException, Injectable } from "@nestjs/common"
 
@@ -5,6 +6,7 @@ import { InjectRepository } from "@nestjs/typeorm"
 import { Repository } from "typeorm"
 import { UserEntity } from "./user.entity"
 import { SignInDTO } from "./dto/signIn.dto"
+import { LoginResponse } from "../auth/types/LoginResponse.type"
 
 @Injectable()
 export class UserService {
@@ -13,15 +15,15 @@ export class UserService {
     private readonly authService: AuthService
   ) {}
 
-  async login(user: any) {
+  async login(user: UserType): Promise<LoginResponse> {
     return await this.authService.login(user)
   }
 
-  async getUser() {
+  async getUsers(): Promise<UserEntity[]> {
     return await this.userRepo.find()
   }
 
-  async createUser(dto: SignInDTO) {
+  async createUser(dto: SignInDTO): Promise<UserEntity> {
     const existUser = await this.userRepo.findOne({ email: dto.email })
 
     if (existUser) {

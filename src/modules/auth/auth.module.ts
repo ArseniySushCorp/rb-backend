@@ -8,7 +8,7 @@ import { UserEntity } from "../user/user.entity"
 import { JwtModule } from "@nestjs/jwt"
 import { LocalStrategy } from "./strategy/local.strategy"
 import { JwtStrategy } from "./strategy/jwt.strategy"
-import { JwtAuthGlobalGuard } from "./guard/jwt.auth.guard"
+import { JwtAuthGlobalGuard } from "./guards/jwt.auth.guard"
 
 @Module({
   imports: [

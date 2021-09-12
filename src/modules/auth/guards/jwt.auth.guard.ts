@@ -1,7 +1,13 @@
-import { ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common"
+import {
+  CustomDecorator,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException
+} from "@nestjs/common"
 import { SetMetadata } from "@nestjs/common"
 import { AuthGuard } from "@nestjs/passport"
 import { APP_GUARD, Reflector } from "@nestjs/core"
+import { Observable } from "rxjs"
 
 export const IS_PUBLIC_KEY = "isPublic"
 
@@ -11,7 +17,7 @@ class JwtAuthGuard extends AuthGuard("jwt") {
     super()
   }
 
-  canActivate(context: ExecutionContext) {
+  canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass()
@@ -22,7 +28,7 @@ class JwtAuthGuard extends AuthGuard("jwt") {
     return super.canActivate(context)
   }
 
-  handleRequest(err, user, info) {
+  handleRequest(err, user, info): any {
     // You can throw an exception based on either "info" or "err" arguments
     if (err || !user) {
       throw err || new UnauthorizedException()
@@ -36,4 +42,4 @@ export const JwtAuthGlobalGuard = {
   useClass: JwtAuthGuard
 }
 
-export const Public = () => SetMetadata(IS_PUBLIC_KEY, true)
+export const Public = (): CustomDecorator<string> => SetMetadata(IS_PUBLIC_KEY, true)

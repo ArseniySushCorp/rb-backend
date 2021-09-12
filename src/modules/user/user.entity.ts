@@ -4,12 +4,11 @@ import { hash, genSalt } from "bcrypt"
 import { Exclude } from "class-transformer"
 
 @Entity({ name: "users" })
-@Unique(["email"])
 export class UserEntity extends BaseEntity {
-  @Column()
+  @Column({ unique: true, length: 150 })
   email: string
 
-  @Column()
+  @Column({ length: 150 })
   username: string
 
   @Exclude()

@@ -1,17 +1,12 @@
-import { BeforeUpdate, Column, PrimaryGeneratedColumn } from "typeorm"
+import { CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 
 export class BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @CreateDateColumn()
   createdAt: Date
 
-  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @UpdateDateColumn()
   updatedAt: Date
-
-  @BeforeUpdate()
-  updateTimestamp() {
-    this.updatedAt = new Date()
-  }
 }
