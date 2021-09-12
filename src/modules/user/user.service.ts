@@ -24,8 +24,6 @@ export class UserService {
   async createUser(dto: SignInDTO) {
     const existUser = await this.userRepo.findOne({ email: dto.email })
 
-    console.log(existUser, "EXIST USER")
-
     if (existUser) {
       throw new ConflictException("email has already been taken")
     }
