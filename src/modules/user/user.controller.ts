@@ -22,17 +22,17 @@ export class UserController {
   constructor(private service: UserService) {}
 
   @Public()
-  @Post("user/login")
-  @UseGuards(LocalAuthGuard)
-  async login(@User() user: UserType): Promise<LoginResponse> {
-    return this.service.login(user)
-  }
-
-  @Public()
   @Post("user")
   @UseInterceptors(ClassSerializerInterceptor)
   async signIn(@Body() dto: SignInDTO): Promise<UserEntity> {
     return this.service.createUser(dto)
+  }
+
+  @Public()
+  @Post("user/login")
+  @UseGuards(LocalAuthGuard)
+  async login(@User() user: UserType): Promise<LoginResponse> {
+    return this.service.buildLoginResponse(user)
   }
 
   @Get("users")

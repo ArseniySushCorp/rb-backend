@@ -1,6 +1,6 @@
-import { UserType } from "./../../user/types/user.type"
+import { UserResponse } from "./../../user/types/userResponse.type"
 
 export type LoginResponse = {
-  user: UserType
+  user: UserResponse
   token: string
 }

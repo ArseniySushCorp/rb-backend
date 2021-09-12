@@ -1,3 +1,4 @@
+import { pick } from "ramda"
 import { UserType } from "./types/user.type"
 import { AuthService } from "./../auth/auth.service"
 import { ConflictException, Injectable } from "@nestjs/common"
@@ -15,8 +16,14 @@ export class UserService {
     private readonly authService: AuthService
   ) {}
 
-  async login(user: UserType): Promise<LoginResponse> {
-    return await this.authService.login(user)
+  async buildLoginResponse(user: UserType): Promise<LoginResponse> {
+    const token = await this.authService.getToken(user)
+    const responseUser = pick(["username", "email", "id"], user)
+
+    return {
+      token,
+      user: responseUser
+    }
   }
 
   async getUsers(): Promise<UserEntity[]> {

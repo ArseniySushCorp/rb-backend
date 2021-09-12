@@ -1,5 +1,4 @@
 import { UserType } from "./../user/types/user.type"
-import { LoginResponse } from "./types/LoginResponse.type"
 import { UserEntity } from "@src/modules/user/user.entity"
 import { compare } from "bcrypt"
 import { Injectable, UnauthorizedException } from "@nestjs/common"
@@ -32,12 +31,9 @@ export class AuthService {
     return user
   }
 
-  async login(user: UserType): Promise<LoginResponse> {
-    const payload = { username: user.username, sub: user.id }
+  async getToken(user: UserType): Promise<string> {
+    const payload = { email: user.email, sub: user.id }
 
-    return {
-      token: this.jwtService.sign(payload),
-      user: user
-    }
+    return await this.jwtService.sign(payload)
   }
 }
