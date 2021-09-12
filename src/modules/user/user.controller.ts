@@ -1,3 +1,5 @@
+import { UserType } from "./types/user.type"
+import { User } from "./decorators/user.decorator"
 import { UserService } from "./user.service"
 import {
   Body,
@@ -6,35 +8,36 @@ import {
   Get,
   Post,
   UseGuards,
-  UseInterceptors,
-  Request
+  UseInterceptors
 } from "@nestjs/common"
 
-import { LocalAuthGuard } from "../auth/guard/local.auth.guard"
-import { Public } from "../auth/guard/jwt.auth.guard"
+import { LocalAuthGuard } from "../auth/guards/local.auth.guard"
+import { Public } from "../auth/guards/jwt.auth.guard"
 import { SignInDTO } from "./dto/signIn.dto"
+import { LoginResponse } from "../auth/types/LoginResponse.type"
+import { UserEntity } from "./user.entity"
 
 @Controller()
 export class UserController {
   constructor(private service: UserService) {}
 
   @Public()
-  @Post("user/login")
-  @UseGuards(LocalAuthGuard)
-  async login(@Request() req) {
-    return this.service.login(req.user)
+  @Post("user")
+  @UseInterceptors(ClassSerializerInterceptor)
+  async signIn(@Body() dto: SignInDTO): Promise<UserEntity> {
+    return this.service.createUser(dto)
   }
 
   @Public()
-  @Post("user")
-  @UseInterceptors(ClassSerializerInterceptor)
-  async signIn(@Body() dto: SignInDTO) {
-    return this.service.createUser(dto)
+  @Post("user/login")
+  @UseGuards(LocalAuthGuard)
+  async login(@User() user: UserType): Promise<LoginResponse> {
+    return this.service.buildLoginResponse(user)
   }
 
   @Get("users")
   @UseInterceptors(ClassSerializerInterceptor)
-  getUser() {
-    return this.service.getUser()
+  getUsers(): Promise<UserEntity[]> {
+    return this.service.getUsers()
   }
 }

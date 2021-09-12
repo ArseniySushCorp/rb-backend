@@ -1,15 +1,14 @@
 import { BaseEntity } from "@src/entity/BaseEntity"
-import { BeforeInsert, Column, Entity, Unique } from "typeorm"
+import { BeforeInsert, Column, Entity } from "typeorm"
 import { hash, genSalt } from "bcrypt"
 import { Exclude } from "class-transformer"
 
 @Entity({ name: "users" })
-@Unique(["email"])
 export class UserEntity extends BaseEntity {
-  @Column()
+  @Column({ unique: true, length: 150 })
   email: string
 
-  @Column()
+  @Column({ length: 150 })
   username: string
 
   @Exclude()
@@ -17,13 +16,13 @@ export class UserEntity extends BaseEntity {
   password: string
 
   @BeforeInsert()
-  async hashPassword() {
+  async hashPassword(): Promise<void> {
     const salt = await genSalt()
     this.password = await hash(this.password, salt)
   }
 
   constructor(partial: Partial<UserEntity>) {
-    super()
+    super(partial)
     Object.assign(this, partial)
   }
 }

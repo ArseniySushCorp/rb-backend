@@ -1,17 +1,19 @@
-import { BeforeUpdate, Column, PrimaryGeneratedColumn } from "typeorm"
+import { CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
+import { Exclude } from "class-transformer"
 
 export class BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @Exclude()
+  @CreateDateColumn()
   createdAt: Date
 
-  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @Exclude()
+  @UpdateDateColumn()
   updatedAt: Date
 
-  @BeforeUpdate()
-  updateTimestamp() {
-    this.updatedAt = new Date()
+  constructor(partial: Partial<BaseEntity>) {
+    Object.assign(this, partial)
   }
 }

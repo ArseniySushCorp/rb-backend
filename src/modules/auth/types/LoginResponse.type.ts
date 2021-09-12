@@ -1,6 +1,6 @@
-import { UserEntity } from "@src/modules/user/user.entity"
+import { UserResponse } from "./../../user/types/userResponse.type"
 
 export type LoginResponse = {
-  user: UserEntity
+  user: UserResponse
   token: string
 }
