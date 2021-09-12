@@ -15,7 +15,7 @@
 > http://localhost:5000/api/user
 > ```
 
-### Body (**raw**)
+### Body
 
 ```json
 {
@@ -45,7 +45,7 @@
 > http://localhost:5000/api/user/login
 > ```
 
-### Body (**raw**)
+### Body
 
 ```json
 {
