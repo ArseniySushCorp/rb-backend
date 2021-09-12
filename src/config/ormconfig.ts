@@ -15,7 +15,8 @@ const config: TypeOrmModuleOptions = {
   migrations: [__dirname + "/../db/migrate/**/*{.ts,.js}"],
   cli: {
     migrationsDir: "src/db/migrate"
-  }
+  },
+  logging: true
 }
 
 export default config
