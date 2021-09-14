@@ -1,7 +1,3 @@
-if (process.env.NODE_ENV === "production") {
-  require("module-alias/register")
-}
-
 import { ValidationPipe } from "@nestjs/common"
 import { NestFactory } from "@nestjs/core"
 import { NestExpressApplication } from "@nestjs/platform-express"

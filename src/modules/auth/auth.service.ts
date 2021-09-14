@@ -1,10 +1,10 @@
 import { UserType } from "./../user/types/user.type"
-import { UserEntity } from "@src/modules/user/user.entity"
 import { compare } from "bcrypt"
 import { Injectable, UnauthorizedException } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Repository } from "typeorm"
 import { JwtService } from "@nestjs/jwt"
+import { UserEntity } from "../user/user.entity"
 
 @Injectable()
 export class AuthService {
