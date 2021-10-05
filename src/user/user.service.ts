@@ -1,6 +1,6 @@
 import { pick } from "ramda"
 import { UserType } from "./types/user.type"
-import { AuthService } from "./../auth/auth.service"
+import { AuthService } from "../auth/auth.service"
 import { ConflictException, Injectable } from "@nestjs/common"
 
 import { InjectRepository } from "@nestjs/typeorm"

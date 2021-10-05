@@ -1,4 +1,4 @@
-import { UserType } from "./../../user/types/user.type"
+import { UserType } from "../../user/types/user.type"
 import { Strategy } from "passport-local"
 import { PassportStrategy } from "@nestjs/passport"
 import { ContextIdFactory, ModuleRef } from "@nestjs/core"

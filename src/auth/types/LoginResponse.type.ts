@@ -1,4 +1,4 @@
-import { UserResponse } from "./../../user/types/userResponse.type"
+import { UserResponse } from "../../user/types/userResponse.type"
 
 export type LoginResponse = {
   user: UserResponse

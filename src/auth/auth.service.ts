@@ -1,4 +1,4 @@
-import { UserType } from "./../user/types/user.type"
+import { UserType } from "../user/types/user.type"
 import { compare } from "bcrypt"
 import { Injectable, UnauthorizedException } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
@@ -34,6 +34,6 @@ export class AuthService {
   async getToken(user: UserType): Promise<string> {
     const payload = { email: user.email, sub: user.id }
 
-    return await this.jwtService.sign(payload)
+    return this.jwtService.sign(payload)
   }
 }
