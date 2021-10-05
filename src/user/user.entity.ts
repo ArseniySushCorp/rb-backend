@@ -1,8 +1,8 @@
 import { BeforeInsert, Column, Entity } from "typeorm"
-import { hash, genSalt } from "bcrypt"
 import { Exclude } from "class-transformer"
+import { hash, genSalt } from "bcrypt"
 
-import { BaseEntity } from "../../entity/BaseEntity"
+import { BaseEntity } from "../entity/BaseEntity"
 
 @Entity({ name: "users" })
 export class UserEntity extends BaseEntity {

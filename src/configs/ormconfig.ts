@@ -10,7 +10,7 @@ const config: TypeOrmModuleOptions = {
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRESS_PASSWORD,
   database: process.env.POSTGRES_DB,
-  entities: [__dirname + "/../modules/**/*.entity{.ts,.js}"],
+  entities: [__dirname + "/../**/*.entity{.ts,.js}"],
   synchronize: false,
   migrations: [__dirname + "/../db/migrate/**/*{.ts,.js}"],
   cli: {
