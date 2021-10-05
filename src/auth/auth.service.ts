@@ -5,6 +5,7 @@ import { InjectRepository } from "@nestjs/typeorm"
 import { Repository } from "typeorm"
 import { JwtService } from "@nestjs/jwt"
 import { UserEntity } from "../user/user.entity"
+import { EMAIL_NOT_FOUND, WRONG_PASSWORD } from "./auth.const"
 
 @Injectable()
 export class AuthService {
@@ -17,13 +18,13 @@ export class AuthService {
     const user = await this.userRepo.findOne({ email })
 
     if (!user) {
-      throw new UnauthorizedException("Email not found")
+      throw new UnauthorizedException(EMAIL_NOT_FOUND)
     }
 
     const isMatchPasswords = await compare(password, user.password)
 
     if (!isMatchPasswords) {
-      throw new UnauthorizedException("Wrong password")
+      throw new UnauthorizedException(WRONG_PASSWORD)
     }
 
     delete user.password

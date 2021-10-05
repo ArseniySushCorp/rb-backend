@@ -5,7 +5,7 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-## API documentation
+# API documentation
 
 ## End-point: Sign in
 
@@ -29,9 +29,12 @@
 
 ```json
 {
-  "username": "user",
-  "email": "user0@domain.com",
-  "id": 3
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXI1QGRvbWFpbi5jb20iLCJzdWIiOjYsImlhdCI6MTYzMzQ2Njg0N30.K6oZD5sJs3IqbhUxB6hzKdSHSAgDxPuPJV-uW8m6jm0",
+  "user": {
+    "username": "user",
+    "email": "user0@domain.com",
+    "id": 3
+  }
 }
 ```
 
@@ -79,9 +82,9 @@
 
 ### 🔑 Authentication bearer
 
-| Param | value                                                                                                                                        | Type   |
-| ----- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| token | eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJzdWIiOjIsImlhdCI6MTYzMTQ4MDQwOX0.pBqLdEOg8_45fSdSRtOYWRsAeiDd1kOzWxmN7O9i9L8 | string |
+| Param  | value                                                                                                                                        | Type   |
+| ------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| Bearer | eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJzdWIiOjIsImlhdCI6MTYzMTQ4MDQwOX0.pBqLdEOg8_45fSdSRtOYWRsAeiDd1kOzWxmN7O9i9L8 | string |
 
 ### Response
 
@@ -90,7 +93,7 @@
   {
     "id": 1,
     "email": "user1@domain.com",
-    "username": "arseniy"
+    "username": "user"
   },
   {
     "id": 2,

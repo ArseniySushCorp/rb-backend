@@ -24,7 +24,7 @@ export class UserController {
   @Public()
   @Post("user")
   @UseInterceptors(ClassSerializerInterceptor)
-  async signIn(@Body() dto: SignInDTO): Promise<UserEntity> {
+  async signIn(@Body() dto: SignInDTO): Promise<LoginResponse> {
     return this.service.createUser(dto)
   }
 
@@ -35,6 +35,7 @@ export class UserController {
     return this.service.buildLoginResponse(user)
   }
 
+  // TODO: test request
   @Get("users")
   @UseInterceptors(ClassSerializerInterceptor)
   getUsers(): Promise<UserEntity[]> {
