@@ -1,18 +1,20 @@
 import { pick } from "ramda"
-import { UserType } from "./types/user.type"
-import { AuthService } from "../auth/auth.service"
-import { ConflictException, Injectable } from "@nestjs/common"
-
-import { InjectRepository } from "@nestjs/typeorm"
 import { Repository } from "typeorm"
+import { ConflictException, Injectable } from "@nestjs/common"
+import { InjectRepository } from "@nestjs/typeorm"
+
+import { AuthService } from "../auth/auth.service"
+import { UserType } from "./types/user.type"
 import { UserEntity } from "./user.entity"
 import { SignInDTO } from "./dto/signIn.dto"
 import { LoginResponse } from "../auth/types/LoginResponse.type"
+import { EMAIL_ALREADY_TAKEN } from "./user.const"
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(UserEntity) private readonly userRepo: Repository<UserEntity>,
+    @InjectRepository(UserEntity)
+    private readonly userRepo: Repository<UserEntity>,
     private readonly authService: AuthService
   ) {}
 
@@ -30,15 +32,16 @@ export class UserService {
     return await this.userRepo.find()
   }
 
-  async createUser(dto: SignInDTO): Promise<UserEntity> {
+  async createUser(dto: SignInDTO): Promise<LoginResponse> {
     const existUser = await this.userRepo.findOne({ email: dto.email })
 
     if (existUser) {
-      throw new ConflictException("email has already been taken")
+      throw new ConflictException(EMAIL_ALREADY_TAKEN)
     }
 
     const user = new UserEntity(dto)
+    await this.userRepo.save(user)
 
-    return await this.userRepo.save(user)
+    return this.buildLoginResponse(user)
   }
 }
