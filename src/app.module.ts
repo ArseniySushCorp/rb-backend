@@ -1,4 +1,5 @@
-import { Module } from "@nestjs/common"
+import { Module, ValidationPipe } from "@nestjs/common"
+import { APP_PIPE } from "@nestjs/core"
 import { ConfigModule } from "@nestjs/config"
 import { TypeOrmModule } from "@nestjs/typeorm"
 
@@ -16,6 +17,12 @@ const libModules = [
 ]
 
 @Module({
-  imports: [...businessModules, ...libModules]
+  imports: [...businessModules, ...libModules],
+  providers: [
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe
+    }
+  ]
 })
 export class AppModule {}

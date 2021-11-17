@@ -1,4 +1,4 @@
-import { Logger, ValidationPipe } from "@nestjs/common"
+import { Logger } from "@nestjs/common"
 import { NestFactory } from "@nestjs/core"
 import { NestExpressApplication } from "@nestjs/platform-express"
 import { AppModule } from "./app.module"
@@ -16,7 +16,6 @@ async function bootstrap(): Promise<void> {
   })
 
   app.setGlobalPrefix("api")
-  app.useGlobalPipes(new ValidationPipe())
 
   await app.listen(PORT, () => Logger.log(`Server is started on port = ${PORT}`))
 }

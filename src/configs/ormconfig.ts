@@ -3,7 +3,7 @@ import dotenv = require("dotenv")
 
 dotenv.config()
 
-const config: TypeOrmModuleOptions = {
+const devConfig: TypeOrmModuleOptions = {
   type: "postgres",
   host: process.env.POSTGRES_HOST,
   port: +process.env.POSTGRESS_PORT,
@@ -18,5 +18,9 @@ const config: TypeOrmModuleOptions = {
   },
   logging: true
 }
+
+const testConfig = { ...devConfig, database: process.env.POSTGRES_DB_TEST }
+
+const config = process.env.NODE_ENV === "test" ? testConfig : devConfig
 
 export default config
