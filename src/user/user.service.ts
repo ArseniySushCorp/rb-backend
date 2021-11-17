@@ -32,7 +32,7 @@ export class UserService {
     return await this.userRepo.find()
   }
 
-  async createUser(dto: SignInDTO): Promise<LoginResponse> {
+  async createUser(dto: SignInDTO): Promise<UserEntity> {
     const existUser = await this.userRepo.findOne({ email: dto.email })
 
     if (existUser) {
@@ -40,8 +40,7 @@ export class UserService {
     }
 
     const user = new UserEntity(dto)
-    await this.userRepo.save(user)
 
-    return this.buildLoginResponse(user)
+    return this.userRepo.save(user)
   }
 }
