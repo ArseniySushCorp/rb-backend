@@ -1,14 +1,15 @@
+import { InjectRepository } from "@nestjs/typeorm"
+import { Injectable } from "@nestjs/common"
+import { map, prop } from "ramda"
+import { getRepository, Repository } from "typeorm"
+
 import { SizeEntity } from "./size.entity"
 import { CreateSizeDTO } from "./dto/create-size.dto"
-import { Injectable } from "@nestjs/common"
-import { getRepository, Repository } from "typeorm"
 import { ProductEntity } from "./product.entity"
-import { InjectRepository } from "@nestjs/typeorm"
 import { CreateProductDTO } from "./dto/create-product.dto"
 import { ProductsQueryType } from "./types/product-query.type"
 import { ProductResponseInterface } from "./types/products-response.interface"
 import { PRODUCTS_LIMIT } from "./product.const"
-import { map, prop } from "ramda"
 import { extract } from "./product.helpers"
 
 @Injectable()
@@ -45,7 +46,7 @@ export class ProductService {
       .createQueryBuilder("products")
       .leftJoinAndSelect("products.sizes", "sizes")
       .orderBy("products.createdAt", "ASC")
-      .limit(query.limit || PRODUCTS_LIMIT)
+      .take(query.limit || PRODUCTS_LIMIT)
 
     if (query.offset) {
       queryBuilder.offset(query.offset)
@@ -78,5 +79,14 @@ export class ProductService {
       brands: extract(colorsAndBrands, "brands"),
       sizes
     }
+  }
+
+  async deleteProduct(product: ProductEntity): Promise<void> {
+    await this.sizeRepo.delete({ product })
+    await this.productRepo.delete(product.id)
+  }
+
+  async deleteProductSize(sizeId: number): Promise<void> {
+    await this.sizeRepo.delete(sizeId)
   }
 }

@@ -1,11 +1,5 @@
 import { ExpressRequestInterface } from "../../shared/types/expressRequest.interface"
-import {
-  CanActivate,
-  ExecutionContext,
-  HttpException,
-  HttpStatus,
-  Injectable
-} from "@nestjs/common"
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common"
 import { UserRole } from "../types/user-role.enum"
 
 @Injectable()
@@ -17,6 +11,6 @@ export class AdminGuard implements CanActivate {
       return true
     }
 
-    throw new HttpException("Not authorized", HttpStatus.UNAUTHORIZED)
+    throw new UnauthorizedException()
   }
 }
