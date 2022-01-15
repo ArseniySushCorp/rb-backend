@@ -5,7 +5,7 @@ import { TypeOrmModule } from "@nestjs/typeorm"
 import { UserModule } from "./user/user.module"
 import { AuthModule } from "./auth/auth.module"
 import { ProductModule } from "./product/product.module"
-import ormconfig from "./configs/ormconfig"
+import ormconfig from "./config/ormconfig"
 import { JwtAuthGlobalGuard } from "./auth/guards/jwt.auth.guard"
 import { ValidationGlobalPipe } from "./shared/pipes/validation-global.pipe"
 

@@ -19,7 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "cross-env NODE_ENV=test jest --config ./test/jest-e2e.json",
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config=src/configs/ormconfig.ts",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config=src/config/ormconfig.ts",
     "db:drop": "yarn typeorm schema:drop",
     "db:create": "yarn typeorm migration:generate -- -n",
     "db:migrate": "yarn typeorm migration:run",
