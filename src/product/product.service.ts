@@ -29,7 +29,7 @@ export class ProductService {
     return this.productRepo.findOne(productId, { relations: ["sizes"] })
   }
 
-  async addProductSize(dto: CreateSizeDTO, product: ProductEntity): Promise<any> {
+  async addProductSize(dto: CreateSizeDTO, product: ProductEntity): Promise<SizeEntity> {
     const newSize = new SizeEntity()
     Object.assign(newSize, { ...dto, product: product.id })
 
