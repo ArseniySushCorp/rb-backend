@@ -21,7 +21,7 @@ import { ProductsQueryType } from "./types/product-query.type"
 import { ProductResponseInterface } from "./types/products-response.interface"
 import { CreateSizeDTO } from "./dto/create-size.dto"
 import { SizeEntity } from "./size.entity"
-import { AdminGuard } from "src/user/guards/admin.guard"
+import { AdminGuard } from "../user/guards/admin.guard"
 
 @Controller()
 export class ProductController {

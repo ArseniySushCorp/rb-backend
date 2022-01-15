@@ -1,21 +1,24 @@
+import { USER_NOT_FOUND } from "./user.const"
+import { AdminGuard } from "src/user/guards/admin.guard"
 import { UserType } from "./types/user.type"
 import { User } from "./decorators/user.decorator"
 import { UserService } from "./user.service"
 import {
+  BadRequestException,
   Body,
-  ClassSerializerInterceptor,
   Controller,
-  Get,
+  Delete,
+  HttpCode,
+  HttpStatus,
+  Param,
   Post,
-  UseGuards,
-  UseInterceptors
+  UseGuards
 } from "@nestjs/common"
 
 import { LocalAuthGuard } from "../auth/guards/local.auth.guard"
 import { Public } from "../auth/guards/jwt.auth.guard"
 import { SignInDTO } from "./dto/signIn.dto"
 import { LoginResponse } from "../auth/types/LoginResponse.type"
-import { UserEntity } from "./user.entity"
 
 @Controller()
 export class UserController {
@@ -36,10 +39,16 @@ export class UserController {
     return this.service.buildLoginResponse(user)
   }
 
-  // TODO: test request
-  @Get("users")
-  @UseInterceptors(ClassSerializerInterceptor)
-  getUsers(): Promise<UserEntity[]> {
-    return this.service.getUsers()
+  @Delete("user/:id")
+  @UseGuards(AdminGuard)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async deleteUser(@Param("id") userId: number): Promise<void> {
+    const user = this.service.findUser(userId)
+
+    if (!user) {
+      throw new BadRequestException(USER_NOT_FOUND)
+    }
+
+    await this.service.deleteUser(user)
   }
 }
