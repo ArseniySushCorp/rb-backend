@@ -28,8 +28,8 @@ export class UserService {
     }
   }
 
-  async getUsers(): Promise<UserEntity[]> {
-    return await this.userRepo.find()
+  async findUser(userId): Promise<UserEntity> {
+    return this.userRepo.findOne(userId)
   }
 
   async createUser(dto: SignInDTO): Promise<UserEntity> {
@@ -42,5 +42,9 @@ export class UserService {
     const user = new UserEntity(dto)
 
     return this.userRepo.save(user)
+  }
+
+  async deleteUser(userId): Promise<void> {
+    await this.userRepo.delete(userId)
   }
 }

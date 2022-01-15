@@ -2,7 +2,8 @@ import { BeforeInsert, Column, Entity } from "typeorm"
 import { Exclude } from "class-transformer"
 import { hash, genSalt } from "bcrypt"
 
-import { BaseEntity } from "../entity/BaseEntity"
+import { BaseEntity } from "../shared/entity/BaseEntity"
+import { UserRole } from "./types/user-role.enum"
 
 @Entity({ name: "users" })
 export class UserEntity extends BaseEntity {
@@ -15,6 +16,9 @@ export class UserEntity extends BaseEntity {
   @Exclude()
   @Column()
   password: string
+
+  @Column({ type: "enum", enum: UserRole, default: UserRole.USER })
+  role: UserRole
 
   @BeforeInsert()
   async hashPassword(): Promise<void> {
