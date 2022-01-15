@@ -23,6 +23,7 @@
     "db:drop": "yarn typeorm schema:drop",
     "db:create": "yarn typeorm migration:generate -- -n",
     "db:migrate": "yarn typeorm migration:run",
+    "db:migrate:test": "cross-env NODE_ENV=test yarn typeorm migration:run",
     "db:rollback": "yarn typeorm migration:revert",
     "db:seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config=src/ormseedconfig.ts migration:run"
   },

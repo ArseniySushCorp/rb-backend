@@ -23,7 +23,6 @@ export class UserController {
 
   @Public()
   @Post("user")
-  @UseInterceptors(ClassSerializerInterceptor)
   async signIn(@Body() dto: SignInDTO): Promise<LoginResponse> {
     const user = await this.service.createUser(dto)
 

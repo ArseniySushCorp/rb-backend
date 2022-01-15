@@ -6,7 +6,6 @@ import { JwtModule } from "@nestjs/jwt"
 import { AuthService } from "./auth.service"
 import { LocalStrategy } from "./strategy/local.strategy"
 import { JwtStrategy } from "./strategy/jwt.strategy"
-import { JwtAuthGlobalGuard } from "./guards/jwt.auth.guard"
 import { jwtConfig } from "../configs/jwtconifg"
 import { UserEntity } from "../user/user.entity"
 
@@ -16,7 +15,7 @@ import { UserEntity } from "../user/user.entity"
     PassportModule,
     JwtModule.registerAsync(jwtConfig)
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy, JwtAuthGlobalGuard],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
   exports: [AuthService]
 })
 export class AuthModule {}
