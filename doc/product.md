@@ -226,5 +226,3 @@ Required auth and admin role
 > ```
 > HTTP STATUS: 204
 > ```
-
----
