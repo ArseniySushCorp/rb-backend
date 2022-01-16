@@ -5,6 +5,8 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
+## <a href="https://github.com/ArseniySushCorp/rb-backend/tree/develop/doc">API Documentation</a>
+
 ## Installation
 
 ```bash
